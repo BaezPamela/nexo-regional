@@ -1,117 +1,128 @@
 <template>
   <div id="app">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-verde-nexo sticky-top shadow-sm">
-      <div class="container">
-        <router-link class="navbar-brand d-flex align-items-center" to="/">
-          <img src="/img/logo-nexo.png" alt="Nexo Regional" class="logo-navbar me-2">
-          <div class="contenedor-nombre">
-            <span class="palabra-nexo">Nexo</span>
-            <span class="palabra-regional">Regional</span>
+    <!-- Solo mostrar navbar y footer si NO es ruta de admin -->
+    <template v-if="!isAdminRoute">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-verde-nexo sticky-top shadow-sm">
+        <div class="container">
+          <router-link class="navbar-brand d-flex align-items-center" to="/">
+            <img src="/img/logo-nexo.png" alt="Nexo Regional" class="logo-navbar me-2">
+            <div class="contenedor-nombre">
+              <span class="palabra-nexo">Nexo</span>
+              <span class="palabra-regional">Regional</span>
+            </div>
+          </router-link>
+
+          <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto d-flex align-items-center gap-4">
+              <li class="nav-item">
+                <router-link class="nav-link" to="/">Inicio</router-link>
+              </li>
+              <li class="nav-item">
+                <router-link class="nav-link" to="/Categorias">Comercios</router-link>
+              </li>
+              <li class="nav-item">
+                <router-link class="nav-link" to="/Categorias">Promociones</router-link>
+              </li>
+            </ul>
           </div>
-        </router-link>
-
-        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto d-flex align-items-center gap-4">
-            <li class="nav-item">
-              <router-link class="nav-link text-white fw-medium" to="/">Inicio</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link class="nav-link text-white fw-medium" to="/comercios">Categorias</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link class="nav-link text-white fw-medium" to="/promociones">Promociones</router-link>
-            </li>
-          </ul>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </template>
 
     <router-view />
 
-    <footer class="footer">
-      <div class="container">
-        <div class="row">
-          <!-- Columna 1: Logo y Redes Sociales -->
-          
-<div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
-  <div class="text-center text-lg-start">
-    <div class="logo-container mb-3">
-      <img src="/img/logo-footer.png" alt="Nexo Regional" class="footer-logo">
-      <p class="text-white-50 small mt-2">La guía más completa de Casilda</p>
-    </div>
-    
-    <div class="social-links">
-      <div class="d-flex gap-2 justify-content-center justify-content-lg-start">
-        <a href="#" class="social-icon" target="_blank">
-          <i class="bi bi-facebook"></i>
-        </a>
-        <a href="#" class="social-icon" target="_blank">
-          <i class="bi bi-instagram"></i>
-        </a>
-        <a href="#" class="social-icon" target="_blank">
-          <i class="bi bi-whatsapp"></i>
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
+    <template v-if="!isAdminRoute">
+      <footer class="footer">
+        <div class="container">
+          <div class="row align-items-center">
+            <!-- Columna 1: Logo -->
+            <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+              <div class="logo-container">
+                <img src="/img/logo-nexo.png" alt="Nexo Regional" class="footer-logo">
+                <p>La guía más completa de Casilda</p>
+              </div>
+              <div class="social-links mt-3">
+                <div class="d-flex gap-2 justify-content-center justify-content-lg-start">
+                  <a href="#" class="social-icon" target="_blank">
+                    <i class="bi bi-facebook"></i>
+                  </a>
+                  <a href="#" class="social-icon" target="_blank">
+                    <i class="bi bi-instagram"></i>
+                  </a>
+                  <a href="#" class="social-icon" target="_blank">
+                    <i class="bi bi-whatsapp"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
 
-          <!-- Columna 2: Categorías -->
-          <div class="col-lg-5 col-md-12 mb-4 mb-lg-0">
-            <div class="categorias-container">
-              <div v-for="category in simpleCategories" :key="category" class="categoria-item">
-                <h6 class="text-uppercase fw-bold mb-0 text-white">
-                  <img src="/img/flecha.png" alt="item" class="itemCategoria me-2">
-                  {{ category }}
-                </h6>
+            <!-- Columna 2: Categorías -->
+            <div class="col-lg-5 col-md-12 mb-4 mb-lg-0 categorias-col">
+              <div class="categorias-container">
+                <div class="categoria-item">
+                  <h6><img src="/img/flecha.png" alt="item" class="itemCategoria me-2"> Gastronomía</h6>
+                </div>
+                <div class="categoria-item">
+                  <h6><img src="/img/flecha.png" alt="item" class="itemCategoria me-2"> Tiendas</h6>
+                </div>
+                <div class="categoria-item">
+                  <h6><img src="/img/flecha.png" alt="item" class="itemCategoria me-2"> Servicios</h6>
+                </div>
+                <div class="categoria-item">
+                  <h6><img src="/img/flecha.png" alt="item" class="itemCategoria me-2"> Salud y Belleza</h6>
+                </div>
+                <div class="categoria-item">
+                  <h6><img src="/img/flecha.png" alt="item" class="itemCategoria me-2"> Hogar y Deco</h6>
+                </div>
+                <div class="categoria-item">
+                  <h6><img src="/img/flecha.png" alt="item" class="itemCategoria me-2"> Profesionales</h6>
+                </div>
+              </div>
+            </div>
+
+            <!-- Columna 3: Publicidad -->
+            <div class="col-lg-4 col-md-12 text-center text-lg-end">
+              <div class="publicidad-container">
+                <h5>¿Sos comerciante?</h5>
+                <p>Sumá tu negocio hoy mismo y llegá a toda la ciudad</p>
+                <button class="btn-light">
+                  <img src="/img/cohete.png" alt="cohete" class="cohete-icon me-2">
+                  Quiero Publicitar Mi Negocio
+                </button>
               </div>
             </div>
           </div>
-
-          <!-- Columna 3: Publicidad -->
-          <div class="col-lg-4 col-md-12 text-center text-lg-end">
-            <div class="publicidad-container">
-              <h5 class="fw-bold mb-3 text-white">¿Sos comerciante?</h5>
-              <p class="mb-4 text-white-50">Sumá tu negocio hoy mismo y llegá a toda la ciudad</p>
-              <button @click="handleAdvertising" class="btn btn-light fw-bold px-5 py-3">
-                <img src="/img/cohete.png" alt="cohete" class="cohete-icon me-2" style="width: 25px; height: 25px;">
-                Quiero Publicitar Mi Negocio
-              </button>
-            </div>
+          <hr class="bg-light my-4 opacity-25">
+          <div class="text-center text-white-50 small">
+            <p class="mb-0">
+                 © 2026 Nexo Regional - Todos los derechos reservados. 
+                  Diseño y Desarrollo por 
+                   <a 
+                     href="https://wa.me/5493464693002?text=Hola,%20necesito%20hacerte%20una%20consulta%20sobre%20un%20desarrollo%20web" 
+                     target="_blank" 
+                       class="link-ideas-dev"
+                        >
+                         Ideas Dev
+                   </a>
+            </p>
           </div>
         </div>
-        
-        <hr class="bg-light my-4 opacity-25">
-        
-        <div class="text-center text-white-50 small">
-          <p class="mb-0">© 2026 Nexo Regional - Todos los derechos reservados. Diseño y Desarrollo por Ideas Dev</p>
-        </div>
-      </div>
-    </footer>
+      </footer>
+    </template>
   </div>
 </template>
 
+
 <script>
-export default {
-  name: 'App',
-  data() {
-    return {
-      simpleCategories: [
-        'Gastronomía', 'Tiendas', 'Servicios', 
-        'Salud y Belleza', 'Hogar y Deco', 'Profesionales'
-      ]
-    }
-  },
-  methods: {
-    handleAdvertising() {
-      alert('¡Gracias por tu interés! Pronto nos contactaremos contigo.')
-    }
-  }
-}
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
+const isAdminRoute = computed(() => route.path.startsWith('/admin'));
 </script>
 
 <style>
@@ -158,6 +169,7 @@ router-view {
 .logo-navbar {
   height: 70px;
   width: auto;
+  margin-left:-20px;
 }
 
 .contenedor-nombre {
@@ -222,31 +234,34 @@ router-view {
 .footer {
   background-color: #186A44;
   color: white;
-  padding: 3rem 0 1.5rem 0;
-  margin-top: auto;
+  padding: 1.rem 0 1rem 0;
+  margin-top: 50px;;
+
 }
 
 /* Logo footer */
 .footer-logo {
-  width: 250px;
+  width: 140px;
   height: auto;
-   margin-top: -50px; 
+   margin-top: 15px; 
   display: block;
   margin-bottom: 5px; /* Reducido de 10px a 5px */
+  
 }
  
 
 .logo-container {
-  margin-top: -30px; /* Espacio adicional para subir todo el contenedor */
-  margin-left: -70px;
+  margin-top: -10px; /* Espacio adicional para subir todo el contenedor */
+  margin-left: -12px;
+  margin-bottom:20px;
  
   
  
 }
 .logo-container p{
   font-size:18PX;
-  margin-left:15px;
-   margin-top: -25px !important; /* Sube la frase hacia arriba */
+  margin-left:-40px;
+  margin-top: 15px !important; /* Sube la frase hacia arriba */
   margin-bottom: 0;
 }
 
@@ -254,10 +269,11 @@ router-view {
 .categorias-container {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.85rem;
    justify-content: center; /* Centra verticalmente */
   height: 100%; /* Toma toda la altura disponible */
-  margin:20PX 180PX 20PX;
+  margin:20PX 200PX 20PX;
+  padding:5px 60px;
 }
 
 .categorias-col {
@@ -267,13 +283,14 @@ router-view {
 
 .categoria-item h6 {
   color: white;
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-family: "Mplus 1p", sans-serif;
   font-weight: 500;
   margin: 0;
   display: flex;
   align-items: center;
    justify-content: flex-start; /* Alineación a la izquierda dentro del contenedor */
+    white-space: nowrap; /* Esto evita que el texto salte a 2 líneas */
 }
 
 .itemCategoria {
@@ -319,9 +336,9 @@ router-view {
   background-color: #C0BDBD;
   color: #030303;
   border: none;
-  
+  padding:10px 10px;
   align-items: center;
-  
+  margin-top:10px;
   font-size: 1.1rem; 
   font-weight: 700; /* Texto más negrita */
   margin-right:30px;
@@ -336,8 +353,13 @@ router-view {
 
 .btn-light:hover .cohete-icon {
   transform: translateX(3px) translateY(-3px);
+  
 }
-
+.cohete-icon{
+  width:25px;
+  height:25px;
+  
+}
 .publicidad-container p{
   font-size:15px;
   margin-left:15px;
@@ -348,10 +370,49 @@ router-view {
   margin-right:75px;
 }
 
+
 /* Línea divisoria */
-hr {
+.footer hr {
   opacity: 0.2;
+   margin: 15px 0 !important;
+  }
+
+.text-center p{
+  font-size:13px;
+  }
+
+.footer .text-center.small {
+  margin-top: -5px; /* Sube el párrafo */
 }
+
+.footer .text-center.small p {
+  margin-bottom: 0;
+  line-height: 1; /* Reduce la altura de línea */
+}
+.link-ideas-dev {
+  color: #FFAE6B;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.link-ideas-dev:hover {
+  color: #EF7916;
+  text-decoration: underline;
+ 
+  transform: scale(1.04);
+}
+
+.link-ideas-dev i {
+  font-size: 14px;
+}
+
+
+
 
 /* ========== RESPONSIVE ========== */
 /* Desktop (992px y más) - las 3 columnas una al lado de otra */
@@ -404,6 +465,11 @@ hr {
     width: 40px;
     height: 40px;
     font-size: 1.2rem;
+  }
+
+  .link-ideas-dev {
+    display: inline-flex;
+    justify-content: center;
   }
 }
 
